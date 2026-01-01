@@ -27,7 +27,7 @@ export enum AsciiCode {
   Z,
 }
 
-const MAX_STEPS = 26;
+export const MAX_STEPS = 26;
 
 const mod26 = (n: number) => ((n % MAX_STEPS) + MAX_STEPS) % MAX_STEPS;
 const toIdx = (code: AsciiCode): number => code - AsciiCode.A;
@@ -40,8 +40,8 @@ interface Rotor {
   backward: Mapping;
 }
 
-type RotorMap = Record<AsciiCode, AsciiCode>;
-type PlugboardConfig = Map<AsciiCode, AsciiCode>;
+export type RotorMap = Record<AsciiCode, AsciiCode>;
+export type PlugboardConfig = Map<AsciiCode, AsciiCode>;
 
 export const createRotor = (rotorMap: RotorMap): Rotor => {
   if (Object.keys(rotorMap).length !== MAX_STEPS) {
@@ -112,6 +112,7 @@ export function enigmaHandleMessage(
   rotorConfigs: Rotor[],
   initialSteps: number[],
   plugConfig: Map<AsciiCode, AsciiCode> | null,
+  stepCallback?: (steps: number[]) => void,
 ): string {
   let steps = [...initialSteps];
   const plugboard = createPlugboard(plugConfig);
@@ -129,6 +130,7 @@ export function enigmaHandleMessage(
 
       // rotate rotors
       steps = stepping(steps);
+      stepCallback?.(steps);
 
       // convert char to index
       const codeIndex = toIdx(code);
