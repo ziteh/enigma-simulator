@@ -16,6 +16,7 @@ export default function App() {
   const [output, setOutput] = React.useState("");
 
   const [rotorSteps, setRotorSteps] = React.useState([0, 0, 0]);
+  const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
 
   const onStepChange = (index: number, step: number) => {
@@ -66,6 +67,10 @@ export default function App() {
       <Rotor step={rotorSteps[0]} onStepChange={(step) => onStepChange(0, step)} />
       <Rotor step={rotorSteps[1]} onStepChange={(step) => onStepChange(1, step)} />
       <Rotor step={rotorSteps[2]} onStepChange={(step) => onStepChange(2, step)} />
+
+      <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save step</Button>
+      <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load step</Button>
+
       <Textarea
         placeholder="Type your message here"
         value={input}
