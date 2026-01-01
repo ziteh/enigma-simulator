@@ -159,7 +159,7 @@ export function enigmaHandleMessage(
     .join("");
 }
 
-const RotorMapA: RotorMap = {
+export const RotorMapA: RotorMap = {
   [AsciiCode.A]: AsciiCode.E,
   [AsciiCode.B]: AsciiCode.J,
   [AsciiCode.C]: AsciiCode.D,
@@ -188,7 +188,7 @@ const RotorMapA: RotorMap = {
   [AsciiCode.Z]: AsciiCode.P,
 };
 
-const ReflectorMapA: RotorMap = {
+export const ReflectorMapA: RotorMap = {
   [AsciiCode.A]: AsciiCode.Y,
   [AsciiCode.B]: AsciiCode.R,
   [AsciiCode.C]: AsciiCode.U,
@@ -217,7 +217,7 @@ const ReflectorMapA: RotorMap = {
   [AsciiCode.Z]: AsciiCode.T,
 };
 
-const PlugboardConfigA: PlugboardConfig = new Map([
+export const PlugboardConfigA: PlugboardConfig = new Map([
   [AsciiCode.A, AsciiCode.B],
   [AsciiCode.Y, AsciiCode.J],
   [AsciiCode.H, AsciiCode.T],
