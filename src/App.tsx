@@ -84,7 +84,6 @@ export default function App() {
         onChange={(e) => setInput(e.target.value)}
       />
       <Textarea placeholder="Here is the output" value={output} readOnly />
-      <Button>Click me</Button>
     </div>
   );
 }
