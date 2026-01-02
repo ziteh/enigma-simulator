@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Rotor from "@/components/enigma/rotor/rotor";
 
 import {
+  MAX_STEPS,
   enigmaHandleMessage,
   createRotor,
   RotorMapA,
@@ -19,9 +20,14 @@ export default function App() {
   const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
 
-  const onStepChange = (index: number, step: number) => {
+  const resetRotorSteps = () => {
+    setRotorSteps([0, 0, 0]);
+    setDefaultRotorSteps([0, 0, 0]);
+  };
+
+  const updateRotorSteps = (index: number, delta: number) => {
     const newSteps = [...rotorSteps];
-    newSteps[index] = step;
+    newSteps[index] = (newSteps[index] + delta + MAX_STEPS) % MAX_STEPS;
     setRotorSteps(newSteps);
   };
 
@@ -54,8 +60,8 @@ export default function App() {
       setOutput((prev) => prev + newResult);
     } else if (newCharCount < 0) {
       // input was deleted, reset everything
-      setRotorSteps([0, 0, 0]);
-      const newResult = enigmaHandle(input, [0, 0, 0]);
+      setRotorSteps(defaultRotorSteps);
+      const newResult = enigmaHandle(input, defaultRotorSteps);
       setOutput(newResult);
     }
 
@@ -64,12 +70,13 @@ export default function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-4">
-      <Rotor step={rotorSteps[0]} onStepChange={(step) => onStepChange(0, step)} />
-      <Rotor step={rotorSteps[1]} onStepChange={(step) => onStepChange(1, step)} />
-      <Rotor step={rotorSteps[2]} onStepChange={(step) => onStepChange(2, step)} />
+      <Rotor step={rotorSteps[0]} onStepChange={(step) => updateRotorSteps(0, step)} />
+      <Rotor step={rotorSteps[1]} onStepChange={(step) => updateRotorSteps(1, step)} />
+      <Rotor step={rotorSteps[2]} onStepChange={(step) => updateRotorSteps(2, step)} />
 
-      <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save step</Button>
-      <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load step</Button>
+      <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save Step</Button>
+      <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load Step</Button>
+      <Button onClick={() => resetRotorSteps()}>Reset Step</Button>
 
       <Textarea
         placeholder="Type your message here"
