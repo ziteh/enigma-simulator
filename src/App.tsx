@@ -79,6 +79,13 @@ export default function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-4">
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-bold mb-2">Enigma Simulator</h1>
+        <p className="text-lg text-gray-600">
+          Setup your rotors and plugboard, then type message to encrypt or decrypt.
+        </p>
+      </div>
+
       <div className="flex gap-16 items-center justify-between">
         <div className="flex gap-4 flex-row-reverse">
           {rotorSteps.map((s, i) => (
