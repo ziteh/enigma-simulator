@@ -10,10 +10,13 @@ import {
   RotorI,
   RotorII,
   RotorIII,
+  RotorIV,
+  RotorV,
   ReflectorUkwB,
   AsciiCode,
   type PlugboardConfig,
 } from "@/lib/enigma";
+import { Card } from "./components/ui/card";
 
 export default function App() {
   const [input, setInput] = React.useState("");
@@ -89,7 +92,9 @@ export default function App() {
       <div className="flex gap-16 items-center justify-between">
         <div className="flex gap-4 flex-row-reverse">
           {rotorSteps.map((s, i) => (
-            <Rotor key={i} step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
+            <Card key={i}>
+              <Rotor step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
+            </Card>
           ))}
         </div>
         <div className="flex flex-col gap-4">
