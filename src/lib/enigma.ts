@@ -43,20 +43,24 @@ interface Rotor {
 export type RotorMap = Record<AsciiCode, AsciiCode>;
 export type PlugboardConfig = Map<AsciiCode, AsciiCode>;
 
-export const createRotor = (rotorMap: RotorMap): Rotor => {
-  if (Object.keys(rotorMap).length !== MAX_STEPS) {
-    throw new Error(`Rotor map must have ${MAX_STEPS} mappings.`);
+export const createRotor = (mapping: string): Rotor => {
+  if (mapping.length !== MAX_STEPS) {
+    throw new Error(`Rotor mapping string must be ${MAX_STEPS} characters.`);
   }
 
   const forward: Mapping = new Array(MAX_STEPS);
   const backward: Mapping = new Array(MAX_STEPS);
 
-  Object.entries(rotorMap).forEach(([key, val]) => {
-    const k = toIdx(Number(key));
-    const v = toIdx(val);
-    forward[k] = v;
-    backward[v] = k;
-  });
+  for (let i = 0; i < MAX_STEPS; i++) {
+    const charCode = mapping.charCodeAt(i);
+    if (charCode < AsciiCode.A || charCode > AsciiCode.Z) {
+      throw new Error("Rotor mapping must contain only A-Z characters but got: " + mapping);
+    }
+    const fromIdx = i;
+    const to = toIdx(charCode as AsciiCode);
+    forward[fromIdx] = to;
+    backward[to] = fromIdx;
+  }
 
   return { forward, backward };
 };
@@ -161,34 +165,11 @@ export function enigmaHandleMessage(
     .join("");
 }
 
-export const RotorMapA: RotorMap = {
-  [AsciiCode.A]: AsciiCode.E,
-  [AsciiCode.B]: AsciiCode.J,
-  [AsciiCode.C]: AsciiCode.D,
-  [AsciiCode.D]: AsciiCode.K,
-  [AsciiCode.E]: AsciiCode.S,
-  [AsciiCode.F]: AsciiCode.I,
-  [AsciiCode.G]: AsciiCode.R,
-  [AsciiCode.H]: AsciiCode.U,
-  [AsciiCode.I]: AsciiCode.X,
-  [AsciiCode.J]: AsciiCode.B,
-  [AsciiCode.K]: AsciiCode.L,
-  [AsciiCode.L]: AsciiCode.H,
-  [AsciiCode.M]: AsciiCode.W,
-  [AsciiCode.N]: AsciiCode.T,
-  [AsciiCode.O]: AsciiCode.M,
-  [AsciiCode.P]: AsciiCode.C,
-  [AsciiCode.Q]: AsciiCode.Q,
-  [AsciiCode.R]: AsciiCode.G,
-  [AsciiCode.S]: AsciiCode.Z,
-  [AsciiCode.T]: AsciiCode.N,
-  [AsciiCode.U]: AsciiCode.F,
-  [AsciiCode.V]: AsciiCode.V,
-  [AsciiCode.W]: AsciiCode.O,
-  [AsciiCode.X]: AsciiCode.A,
-  [AsciiCode.Y]: AsciiCode.Y,
-  [AsciiCode.Z]: AsciiCode.P,
-};
+export const RotorI = createRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
+export const RotorII = createRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE");
+export const RotorIII = createRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO");
+export const RotorIV = createRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB");
+export const RotorV = createRotor("VZBRGITYUPSDNHLXAWMJQOFECK");
 
 export const ReflectorMapA: RotorMap = {
   [AsciiCode.A]: AsciiCode.Y,

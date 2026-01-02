@@ -7,8 +7,9 @@ import Plugboard from "@/components/enigma/plugboard";
 import {
   MAX_STEPS,
   enigmaHandleMessage,
-  createRotor,
-  RotorMapA,
+  RotorI,
+  RotorII,
+  RotorIII,
   ReflectorMapA,
   AsciiCode,
   type PlugboardConfig,
@@ -41,8 +42,7 @@ export default function App() {
   };
 
   const enigmaHandle = (newInput: string, startSteps: number[]) => {
-    const rotorA = createRotor(RotorMapA);
-    const myRotors = [rotorA, rotorA, rotorA];
+    const myRotors = [RotorI, RotorII, RotorIII];
 
     const result = enigmaHandleMessage(
       newInput,
