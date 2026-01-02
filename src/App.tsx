@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import Rotor from "@/components/enigma/rotor/rotor";
+import Plugboard from "@/components/enigma/plugboard";
 
 import {
   MAX_STEPS,
@@ -89,6 +90,8 @@ export default function App() {
         onChange={(e) => setInput(e.target.value)}
       />
       <Textarea placeholder="Here is the output" value={output} readOnly />
+
+      <Plugboard />
     </div>
   );
 }
