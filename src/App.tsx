@@ -92,12 +92,33 @@ export default function App() {
         </div>
       </div>
 
-      <Textarea
-        placeholder="Type your message here"
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-      />
-      <Textarea placeholder="Here is the output" value={output} readOnly />
+      <div className="w-full max-w-3xl">
+        <div className="mb-4 flex flex-row gap-2">
+          <Textarea placeholder="Here is the output" value={output} readOnly />
+          <Button
+            onClick={() => {
+              navigator.clipboard.writeText(output);
+            }}
+          >
+            Copy
+          </Button>
+        </div>
+        <div className="mb-4 flex flex-row gap-2">
+          <Textarea
+            placeholder="Type your message here"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+          <Button
+            onClick={() => {
+              setInput("");
+              setOutput("");
+            }}
+          >
+            Clear
+          </Button>
+        </div>
+      </div>
 
       <Plugboard pairings={pairings} onPairingsChange={setPairings} />
     </div>
