@@ -10,7 +10,7 @@ import {
   RotorI,
   RotorII,
   RotorIII,
-  ReflectorMapA,
+  ReflectorUkwB,
   AsciiCode,
   type PlugboardConfig,
 } from "@/lib/enigma";
@@ -46,7 +46,7 @@ export default function App() {
 
     const result = enigmaHandleMessage(
       newInput,
-      ReflectorMapA,
+      ReflectorUkwB,
       myRotors,
       startSteps,
       pairings,

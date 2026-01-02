@@ -45,7 +45,9 @@ export type PlugboardConfig = Map<AsciiCode, AsciiCode>;
 
 export const createRotor = (mapping: string): Rotor => {
   if (mapping.length !== MAX_STEPS) {
-    throw new Error(`Rotor mapping string must be ${MAX_STEPS} characters.`);
+    throw new Error(
+      `Reflector mapping string must be ${MAX_STEPS} characters, but got: ` + mapping.length,
+    );
   }
 
   const forward: Mapping = new Array(MAX_STEPS);
@@ -98,21 +100,43 @@ const stepping = (steps: number[]): number[] => {
   return newSteps;
 };
 
-const createReflector = (reflectorMap: RotorMap): number[] => {
-  if (Object.keys(reflectorMap).length !== MAX_STEPS) {
-    throw new Error(`Reflector map must have ${MAX_STEPS} mappings.`);
+export const createReflector = (mapping: string): number[] => {
+  if (mapping.length !== MAX_STEPS) {
+    throw new Error(
+      `Reflector mapping string must be ${MAX_STEPS} characters, but got: ` + mapping.length,
+    );
   }
 
   const reflector: number[] = new Array(MAX_STEPS);
-  Object.entries(reflectorMap).forEach(([k, v]) => {
-    reflector[toIdx(Number(k))] = toIdx(v);
-  });
+  for (let i = 0; i < MAX_STEPS; i++) {
+    const charCode = mapping.charCodeAt(i);
+    if (charCode < AsciiCode.A || charCode > AsciiCode.Z) {
+      throw new Error("Reflector mapping must contain only A-Z characters, but got: " + mapping);
+    }
+    reflector[i] = toIdx(charCode as AsciiCode);
+  }
+
+  // Validate reflector mappings are reciprocal and no character maps to itself
+  for (let i = 0; i < MAX_STEPS; i++) {
+    const target = reflector[i];
+    const i2c = (n: number) => String.fromCharCode(n + AsciiCode.A);
+
+    if (reflector[target] !== i) {
+      throw new Error(
+        `Reflector mapping is not reciprocal: ${i2c(i)} -> ${i2c(target)} but ${i2c(target)} -> ${i2c(reflector[target])}`,
+      );
+    }
+    if (target === i) {
+      throw new Error(`Reflector mapping cannot map a character to itself: ${i2c(i)}`);
+    }
+  }
+
   return reflector;
 };
 
 export function enigmaHandleMessage(
   message: string,
-  reflector: Record<AsciiCode, AsciiCode>,
+  reflector: number[],
   rotorConfigs: Rotor[],
   initialSteps: number[],
   plugConfig: Map<AsciiCode, AsciiCode> | null,
@@ -120,7 +144,6 @@ export function enigmaHandleMessage(
 ): string {
   let steps = [...initialSteps];
   const plugboard = createPlugboard(plugConfig);
-  const reflectorTable = createReflector(reflector);
 
   // process each character
   return message
@@ -148,7 +171,7 @@ export function enigmaHandleMessage(
       });
 
       // 3. reflector
-      signal = reflectorTable[signal]!;
+      signal = reflector[signal]!;
 
       // 4. through each rotor backward
       for (let i = rotorConfigs.length - 1; i >= 0; i--) {
@@ -171,34 +194,8 @@ export const RotorIII = createRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO");
 export const RotorIV = createRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB");
 export const RotorV = createRotor("VZBRGITYUPSDNHLXAWMJQOFECK");
 
-export const ReflectorMapA: RotorMap = {
-  [AsciiCode.A]: AsciiCode.Y,
-  [AsciiCode.B]: AsciiCode.R,
-  [AsciiCode.C]: AsciiCode.U,
-  [AsciiCode.D]: AsciiCode.H,
-  [AsciiCode.E]: AsciiCode.Q,
-  [AsciiCode.F]: AsciiCode.S,
-  [AsciiCode.G]: AsciiCode.L,
-  [AsciiCode.H]: AsciiCode.D,
-  [AsciiCode.I]: AsciiCode.P,
-  [AsciiCode.J]: AsciiCode.X,
-  [AsciiCode.K]: AsciiCode.N,
-  [AsciiCode.L]: AsciiCode.G,
-  [AsciiCode.M]: AsciiCode.O,
-  [AsciiCode.N]: AsciiCode.K,
-  [AsciiCode.O]: AsciiCode.M,
-  [AsciiCode.P]: AsciiCode.I,
-  [AsciiCode.Q]: AsciiCode.E,
-  [AsciiCode.R]: AsciiCode.B,
-  [AsciiCode.S]: AsciiCode.F,
-  [AsciiCode.T]: AsciiCode.Z,
-  [AsciiCode.U]: AsciiCode.C,
-  [AsciiCode.V]: AsciiCode.W,
-  [AsciiCode.W]: AsciiCode.V,
-  [AsciiCode.X]: AsciiCode.J,
-  [AsciiCode.Y]: AsciiCode.A,
-  [AsciiCode.Z]: AsciiCode.T,
-};
+export const ReflectorUkwB = createReflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
+export const ReflectorUkwC = createReflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
 
 export const PlugboardConfigA: PlugboardConfig = new Map([
   [AsciiCode.A, AsciiCode.B],
