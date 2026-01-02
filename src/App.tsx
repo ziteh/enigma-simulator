@@ -70,13 +70,18 @@ export default function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-4">
-      <Rotor step={rotorSteps[0]} onStepChange={(step) => updateRotorSteps(0, step)} />
-      <Rotor step={rotorSteps[1]} onStepChange={(step) => updateRotorSteps(1, step)} />
-      <Rotor step={rotorSteps[2]} onStepChange={(step) => updateRotorSteps(2, step)} />
-
-      <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save Step</Button>
-      <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load Step</Button>
-      <Button onClick={() => resetRotorSteps()}>Reset Step</Button>
+      <div className="flex gap-16 items-center justify-between">
+        <div className="flex gap-4 flex-row-reverse">
+          {rotorSteps.map((s, i) => (
+            <Rotor key={i} step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
+          ))}
+        </div>
+        <div className="flex flex-col gap-4">
+          <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save Step</Button>
+          <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load Step</Button>
+          <Button onClick={() => resetRotorSteps()}>Reset Step</Button>
+        </div>
+      </div>
 
       <Textarea
         placeholder="Type your message here"

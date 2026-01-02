@@ -16,7 +16,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
   }, [prop.step]);
 
   return (
-    <div>
+    <div className="flex flex-col items-center gap-2">
       <Button onClick={() => prop.onStepChange?.(1)}>▲</Button>
 
       <Badge>{indexToChar(step)}</Badge>
