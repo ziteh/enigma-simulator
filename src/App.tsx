@@ -66,7 +66,7 @@ export default function App() {
     }
 
     setPreviousInputLength(input.length);
-  }, [input, previousInputLength, rotorSteps]);
+  }, [defaultRotorSteps, input, previousInputLength, rotorSteps]);
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-4">

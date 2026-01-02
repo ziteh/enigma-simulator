@@ -2,8 +2,12 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
-export default function Rotor(prop: { step?: number; onStepChange?: (step: number) => void }) {
+export default function Rotor(prop: { step?: number; onStepChange?: (delta: number) => void }) {
   const [step, setStep] = React.useState(prop.step || 0);
+
+  const indexToChar = (step: number) => {
+    return String.fromCharCode((step % 26) + 65); // A=65 in ASCII, 26 letters
+  };
 
   React.useEffect(() => {
     if (prop.step !== undefined) {
@@ -15,7 +19,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (step: numbe
     <div>
       <Button onClick={() => prop.onStepChange?.(1)}>▲</Button>
 
-      <Badge>{step + 1}</Badge>
+      <Badge>{indexToChar(step)}</Badge>
 
       <Button onClick={() => prop.onStepChange?.(-1)}>▼</Button>
     </div>
