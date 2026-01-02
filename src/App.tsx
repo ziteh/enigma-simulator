@@ -10,7 +10,6 @@ import {
   createRotor,
   RotorMapA,
   ReflectorMapA,
-  PlugboardConfigA,
   AsciiCode,
   type PlugboardConfig,
 } from "@/lib/enigma";
@@ -50,7 +49,7 @@ export default function App() {
       ReflectorMapA,
       myRotors,
       startSteps,
-      PlugboardConfigA,
+      pairings,
       (steps: number[]) => {
         setRotorSteps(steps);
       },
