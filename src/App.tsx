@@ -21,6 +21,13 @@ export default function App() {
   const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
 
+  const [pairings, setPairings] = React.useState<Map<string, string>>(
+    new Map([
+      ["E", "T"],
+      ["G", "O"],
+    ]),
+  );
+
   const resetRotorSteps = () => {
     setRotorSteps([0, 0, 0]);
     setDefaultRotorSteps([0, 0, 0]);
@@ -91,7 +98,7 @@ export default function App() {
       />
       <Textarea placeholder="Here is the output" value={output} readOnly />
 
-      <Plugboard />
+      <Plugboard pairings={pairings} onPairingsChange={setPairings} />
     </div>
   );
 }

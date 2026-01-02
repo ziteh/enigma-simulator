@@ -1,7 +1,6 @@
 import React, { type JSX } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Toggle } from "@/components/ui/toggle";
 
 function RenderSlot(prop: {
   pairings: Map<string, string>;
@@ -34,16 +33,12 @@ function RenderSlot(prop: {
   return elements;
 }
 
-export default function Plugboard(prop: { pairings?: Map<string, string> }) {
+export default function Plugboard(prop: {
+  pairings: Map<string, string>;
+  onPairingsChange: (pairings: Map<string, string>) => void;
+}) {
   const [firstSelection, setFirstSelection] = React.useState<string | null>(null);
-
-  const [pairings, setPairings] = React.useState<Map<string, string>>(
-    prop.pairings ||
-      new Map([
-        ["A", "B"],
-        ["C", "D"],
-      ]),
-  );
+  const { pairings, onPairingsChange } = prop;
 
   const handleSlotClick = (char: string) => {
     if (firstSelection === null) {
@@ -59,14 +54,14 @@ export default function Plugboard(prop: { pairings?: Map<string, string> }) {
   const addPairing = (a: string, b: string) => {
     const newPairings = new Map(pairings);
     newPairings.set(a, b);
-    setPairings(newPairings);
+    onPairingsChange(newPairings);
   };
 
   const deletePairing = (a: string, b: string) => {
     const newPairings = new Map(pairings);
     newPairings.delete(a);
     newPairings.delete(b);
-    setPairings(newPairings);
+    onPairingsChange(newPairings);
   };
 
   return (
@@ -84,7 +79,7 @@ export default function Plugboard(prop: { pairings?: Map<string, string> }) {
         ))}
       </div>
 
-      <div className="grid grid-cols-9 gap-2">
+      <div className="grid grid-cols-13 gap-2">
         <RenderSlot pairings={pairings} selected={firstSelection} onClick={handleSlotClick} />
       </div>
     </div>
