@@ -1,14 +1,15 @@
 import React, { type JSX } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { AsciiCode, type PlugboardConfig } from "@/lib/enigma";
 
 function RenderSlot(prop: {
-  pairings: Map<string, string>;
+  pairings: PlugboardConfig;
   selected: string | null;
   onClick: (char: string) => void;
 }): Array<JSX.Element> {
   const elements: Array<JSX.Element> = [];
-  const paired = new Set<string>();
+  const paired = new Set<AsciiCode>();
   prop.pairings.forEach((val, key) => {
     paired.add(key);
     paired.add(val);
@@ -16,7 +17,8 @@ function RenderSlot(prop: {
 
   for (let i = 0; i < 26; i++) {
     const char = String.fromCharCode(65 + i);
-    const isPaired = paired.has(char);
+    const charCode = (65 + i) as AsciiCode;
+    const isPaired = paired.has(charCode);
     const isSelected = prop.selected === char;
     elements.push(
       <div key={i}>
@@ -34,8 +36,8 @@ function RenderSlot(prop: {
 }
 
 export default function Plugboard(prop: {
-  pairings: Map<string, string>;
-  onPairingsChange: (pairings: Map<string, string>) => void;
+  pairings: PlugboardConfig;
+  onPairingsChange: (pairings: PlugboardConfig) => void;
 }) {
   const [firstSelection, setFirstSelection] = React.useState<string | null>(null);
   const { pairings, onPairingsChange } = prop;
@@ -53,14 +55,18 @@ export default function Plugboard(prop: {
 
   const addPairing = (a: string, b: string) => {
     const newPairings = new Map(pairings);
-    newPairings.set(a, b);
+    const aCode = a.charCodeAt(0) as AsciiCode;
+    const bCode = b.charCodeAt(0) as AsciiCode;
+    newPairings.set(aCode, bCode);
     onPairingsChange(newPairings);
   };
 
   const deletePairing = (a: string, b: string) => {
     const newPairings = new Map(pairings);
-    newPairings.delete(a);
-    newPairings.delete(b);
+    const aCode = a.charCodeAt(0) as AsciiCode;
+    const bCode = b.charCodeAt(0) as AsciiCode;
+    newPairings.delete(aCode);
+    newPairings.delete(bCode);
     onPairingsChange(newPairings);
   };
 
@@ -70,8 +76,11 @@ export default function Plugboard(prop: {
         {Array.from(pairings.entries()).map(([a, b], i) => (
           <div key={i}>
             <Badge>
-              {a}↔{b}
-              <Button size="icon" onClick={() => deletePairing(a, b)}>
+              {String.fromCharCode(a)}↔{String.fromCharCode(b)}
+              <Button
+                size="icon"
+                onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
+              >
                 ✕
               </Button>
             </Badge>

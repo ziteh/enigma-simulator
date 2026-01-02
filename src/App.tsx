@@ -11,6 +11,8 @@ import {
   RotorMapA,
   ReflectorMapA,
   PlugboardConfigA,
+  AsciiCode,
+  type PlugboardConfig,
 } from "@/lib/enigma";
 
 export default function App() {
@@ -21,10 +23,10 @@ export default function App() {
   const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
 
-  const [pairings, setPairings] = React.useState<Map<string, string>>(
+  const [pairings, setPairings] = React.useState<PlugboardConfig>(
     new Map([
-      ["E", "T"],
-      ["G", "O"],
+      [AsciiCode.E, AsciiCode.T],
+      [AsciiCode.G, AsciiCode.O],
     ]),
   );
 
