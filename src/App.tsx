@@ -89,10 +89,10 @@ export default function App() {
   }, [defaultRotorSteps, input, previousInputLength, rotorSteps]);
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-5">
+    <div className="flex min-h-svh flex-col items-center justify-center p-4 md:p-8 gap-6">
       <div className="text-center mb-6">
-        <h1 className="text-4xl font-bold mb-2">Enigma Simulator</h1>
-        <p className="text-lg text-gray-600 gap-2 flex items-center justify-center">
+        <h1 className="text-2xl md:text-4xl font-bold mb-2">Enigma Simulator</h1>
+        <p className="text-sm md:text-lg opacity-50 gap-2 flex flex-wrap items-center justify-center">
           <span>
             Setup your rotors, reflector, and plugboard, then type message to encrypt or decrypt.
           </span>
@@ -100,10 +100,10 @@ export default function App() {
         </p>
       </div>
 
-      <div className="flex gap-16 items-center justify-between">
-        <div className="flex gap-4 flex-row-reverse">
+      <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center justify-between w-full max-w-lg">
+        <div className="flex gap-4 flex-row-reverse items-center">
           {rotorSteps.map((s, i) => (
-            <Card key={i} title={`Rotor ${i + 1}`} className="gap-4 py-4">
+            <Card key={i} title={`Rotor ${i + 1}`} className="gap-4 py-4 w-full md:w-auto min-h-54">
               <div className="mx-4">
                 <RotorDialog
                   defaultConfig={i}
@@ -115,7 +115,7 @@ export default function App() {
             </Card>
           ))}
 
-          <Card title="Reflector" className="py-4">
+          <Card title="Reflector" className="py-4 min-h-54">
             <div className="mx-2">
               <ReflectorDialog
                 defaultConfig={0}
@@ -125,14 +125,20 @@ export default function App() {
             </div>
           </Card>
         </div>
-        <div className="flex flex-col gap-4">
-          <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save Step</Button>
-          <Button onClick={() => setRotorSteps(defaultRotorSteps)}>Load Step</Button>
-          <Button onClick={() => resetRotorSteps()}>Reset Step</Button>
+        <div className="flex flex-row md:flex-col gap-4 flex-wrap justify-center">
+          <Button variant="default" onClick={() => resetRotorSteps()}>
+            Reset Step
+          </Button>
+          <Button variant="default" onClick={() => setDefaultRotorSteps(rotorSteps)}>
+            Save Step
+          </Button>
+          <Button variant="default" onClick={() => setRotorSteps(defaultRotorSteps)}>
+            Load Step
+          </Button>
         </div>
       </div>
 
-      <div className="w-full max-w-3xl">
+      <div className="w-full max-w-3xl px-4 md:px-0">
         <div className="mb-4 relative">
           <Textarea
             placeholder="Here is the output"
@@ -157,7 +163,7 @@ export default function App() {
             placeholder="Type your message here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="font-mono pr-20"
+            className="min-h-20 font-mono pr-20"
           />
           <Button
             size="sm"
@@ -174,7 +180,7 @@ export default function App() {
         </div>
       </div>
 
-      <div className="-mt-3">
+      <div className="-mt-3 max-w-2xl md:max-w-160">
         <Plugboard pairings={pairings} onPairingsChange={setPairings} />
       </div>
     </div>

@@ -77,7 +77,7 @@ export default function Plugboard(prop: {
 
   return (
     <>
-      <ScrollArea className="w-xl rounded-md whitespace-nowrap mb-2">
+      <ScrollArea className="w-full max-w-xl rounded-md whitespace-nowrap mb-2">
         <div className="flex w-max gap-2 p-4 min-h-18">
           {pairings.size === 0 && (
             <span className="text-muted-foreground italic text-sm">No pairings configured</span>
@@ -104,7 +104,7 @@ export default function Plugboard(prop: {
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
-      <div className="grid grid-cols-13 gap-2">
+      <div className="flex flex-wrap justify-center gap-2">
         <RenderSlot pairings={pairings} selected={firstSelection} onClick={handleSlotClick} />
       </div>
     </>
