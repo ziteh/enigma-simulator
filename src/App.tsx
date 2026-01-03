@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import Rotor from "@/components/enigma/rotor/rotor";
 import Plugboard from "@/components/enigma/plugboard";
 import RotorDialog from "@/components/enigma/rotorDialog";
+import ReflectorDialog from "@/components/enigma/reflector";
 
 import {
   MAX_STEPS,
@@ -11,12 +12,11 @@ import {
   RotorI,
   RotorII,
   RotorIII,
-  RotorIV,
-  RotorV,
   ReflectorUkwB,
   AsciiCode,
   type PlugboardConfig,
   createRotor,
+  createReflector,
 } from "@/lib/enigma";
 import { Card } from "./components/ui/card";
 
@@ -28,6 +28,7 @@ export default function App() {
   const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
   const [rotorConfigs, setRotorConfigs] = React.useState([RotorI, RotorII, RotorIII]);
+  const [reflectorConfig, setReflectorConfig] = React.useState(ReflectorUkwB);
 
   const [pairings, setPairings] = React.useState<PlugboardConfig>(
     new Map([
@@ -56,7 +57,7 @@ export default function App() {
   const enigmaHandle = (newInput: string, startSteps: number[]) => {
     const result = enigmaHandleMessage(
       newInput,
-      ReflectorUkwB,
+      createReflector(reflectorConfig),
       rotorConfigs.map((s) => createRotor(s)),
       startSteps,
       pairings,
@@ -106,6 +107,12 @@ export default function App() {
               <Rotor step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
             </Card>
           ))}
+
+          <Card>
+            <div className="mx-2 flex justify-between items-center">
+              <ReflectorDialog defaultConfig={0} onConfigChange={setReflectorConfig} />
+            </div>
+          </Card>
         </div>
         <div className="flex flex-col gap-4">
           <Button onClick={() => setDefaultRotorSteps(rotorSteps)}>Save Step</Button>

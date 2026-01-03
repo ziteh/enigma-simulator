@@ -205,14 +205,9 @@ export const RotorII = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
 export const RotorIII = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
 export const RotorIV = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
 export const RotorV = "VZBRGITYUPSDNHLXAWMJQOFECK";
-// export const RotorI = createRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
-// export const RotorII = createRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE");
-// export const RotorIII = createRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO");
-// export const RotorIV = createRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB");
-// export const RotorV = createRotor("VZBRGITYUPSDNHLXAWMJQOFECK");
 
-export const ReflectorUkwB = createReflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
-export const ReflectorUkwC = createReflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
+export const ReflectorUkwB = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
+export const ReflectorUkwC = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
 
 export const PlugboardConfigA: PlugboardConfig = new Map([
   [AsciiCode.A, AsciiCode.B],
