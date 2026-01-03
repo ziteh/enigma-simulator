@@ -66,7 +66,6 @@ export default function App() {
         setRotorSteps(steps);
       },
     );
-    console.debug("Result:", result);
     return result;
   };
 
@@ -134,14 +133,17 @@ export default function App() {
       </div>
 
       <div className="w-full max-w-3xl">
-        <div className="mb-4 flex flex-row gap-2">
+        <div className="mb-4 relative">
           <Textarea
             placeholder="Here is the output"
             value={output}
             readOnly
-            className="min-h-20 focus-visible:ring-0 cursor-default resize-none border-none font-mono"
+            className="min-h-20 focus-visible:ring-0 cursor-default resize-none border-none font-mono pr-20"
           />
           <Button
+            size="sm"
+            variant="ghost"
+            className="absolute top-2 right-2"
             onClick={() => {
               navigator.clipboard.writeText(output);
             }}
@@ -149,14 +151,17 @@ export default function App() {
             Copy
           </Button>
         </div>
-        <div className="flex flex-row gap-2">
+        <div className="relative">
           <Textarea
             placeholder="Type your message here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="font-mono"
+            className="font-mono pr-20"
           />
           <Button
+            size="sm"
+            variant="ghost"
+            className="absolute top-2 right-2"
             onClick={() => {
               setInput("");
               setOutput("");
