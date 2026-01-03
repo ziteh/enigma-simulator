@@ -89,7 +89,7 @@ export default function App() {
   }, [defaultRotorSteps, input, previousInputLength, rotorSteps]);
 
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-4">
+    <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-5">
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold mb-2">Enigma Simulator</h1>
         <p className="text-lg text-gray-600">
@@ -145,7 +145,7 @@ export default function App() {
             Copy
           </Button>
         </div>
-        <div className="mb-4 flex flex-row gap-2">
+        <div className="flex flex-row gap-2">
           <Textarea
             placeholder="Type your message here"
             value={input}
@@ -163,7 +163,9 @@ export default function App() {
         </div>
       </div>
 
-      <Plugboard pairings={pairings} onPairingsChange={setPairings} />
+      <div className="-mt-3">
+        <Plugboard pairings={pairings} onPairingsChange={setPairings} />
+      </div>
     </div>
   );
 }

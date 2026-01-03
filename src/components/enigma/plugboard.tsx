@@ -1,6 +1,7 @@
 import React, { type JSX } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { X, MoveHorizontal } from "lucide-react";
 import { AsciiCode, type PlugboardConfig } from "@/lib/enigma";
 
@@ -74,30 +75,36 @@ export default function Plugboard(prop: {
   };
 
   return (
-    <div>
-      <div className="flex flex-wrap gap-2 mb-4">
-        {Array.from(pairings.entries()).map(([a, b], i) => (
-          <div key={i} className="font-mono">
-            <Badge variant="default">
-              {String.fromCharCode(a)}
-              <MoveHorizontal />
-              {String.fromCharCode(b)}
-              <Button
-                variant="ghost"
-                size="icon-sm"
-                onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
-                className="rounded-full"
-              >
-                <X />
-              </Button>
-            </Badge>
-          </div>
-        ))}
-      </div>
+    <>
+      <ScrollArea className="w-xl rounded-md whitespace-nowrap mb-2">
+        <div className="flex w-max gap-2 p-4 min-h-18">
+          {pairings.size === 0 && (
+            <span className="text-muted-foreground italic text-sm">No pairings configured</span>
+          )}
+          {Array.from(pairings.entries()).map(([a, b], i) => (
+            <div key={i} className="font-mono shrink-0">
+              <Badge variant="default">
+                {String.fromCharCode(a)}
+                <MoveHorizontal />
+                {String.fromCharCode(b)}
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
+                  className="rounded-full"
+                >
+                  <X />
+                </Button>
+              </Badge>
+            </div>
+          ))}
+        </div>
+        <ScrollBar orientation="horizontal" />
+      </ScrollArea>
 
       <div className="grid grid-cols-13 gap-2">
         <RenderSlot pairings={pairings} selected={firstSelection} onClick={handleSlotClick} />
       </div>
-    </div>
+    </>
   );
 }
