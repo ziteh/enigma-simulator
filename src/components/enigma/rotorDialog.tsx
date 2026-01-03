@@ -13,7 +13,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { RotorI, RotorII, RotorIII, RotorIV, RotorV, createRotor } from "@/lib/enigma";
+import {
+  createRotor,
+  RotorI,
+  RotorII,
+  RotorIII,
+  RotorIV,
+  RotorV,
+  RotorVI,
+  RotorVII,
+  RotorVIII,
+} from "@/lib/enigma";
 
 const rotorOptions = [
   { name: "I", config: RotorI },
@@ -21,6 +31,9 @@ const rotorOptions = [
   { name: "III", config: RotorIII },
   { name: "IV", config: RotorIV },
   { name: "V", config: RotorV },
+  { name: "VI", config: RotorVI },
+  { name: "VII", config: RotorVII },
+  { name: "VIII", config: RotorVIII },
 ];
 
 const DEFAULT_ROTOR_INDEX = 0;
@@ -80,7 +93,7 @@ export default function RotorDialog(prop: {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="icon" className="font-mono">
+        <Button variant="secondary" size="icon" className="font-mono text-xs">
           {configName}
         </Button>
       </DialogTrigger>

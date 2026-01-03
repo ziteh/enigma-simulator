@@ -200,17 +200,15 @@ export function enigmaHandleMessage(
     .join("");
 }
 
+// Enigma M3
+export const EntryDiscEtw = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 export const RotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
 export const RotorII = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
 export const RotorIII = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
 export const RotorIV = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
 export const RotorV = "VZBRGITYUPSDNHLXAWMJQOFECK";
-
+export const RotorVI = "JPGVOUMFYQBENHZRDKASXLICTW";
+export const RotorVII = "NZJHGRCXMYSWBOUFAIVLPEKQDT";
+export const RotorVIII = "FKQHTLXOCBJSPDZRAMEWNIUYGV";
 export const ReflectorUkwB = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 export const ReflectorUkwC = "FVPJIAOYEDRZXWGCTKUQSBNMHL";
-
-export const PlugboardConfigA: PlugboardConfig = new Map([
-  [AsciiCode.A, AsciiCode.B],
-  [AsciiCode.Y, AsciiCode.J],
-  [AsciiCode.H, AsciiCode.T],
-]);
