@@ -5,6 +5,7 @@ import Rotor from "@/components/enigma/rotor/rotor";
 import Plugboard from "@/components/enigma/plugboard";
 import RotorDialog from "@/components/enigma/rotorDialog";
 import ReflectorDialog from "@/components/enigma/reflector";
+import HelpDialog from "@/components/helpDialog";
 
 import {
   MAX_STEPS,
@@ -90,10 +91,13 @@ export default function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-8 gap-5">
-      <div className="text-center mb-8">
+      <div className="text-center mb-6">
         <h1 className="text-4xl font-bold mb-2">Enigma Simulator</h1>
-        <p className="text-lg text-gray-600">
-          Setup your rotors and plugboard, then type message to encrypt or decrypt.
+        <p className="text-lg text-gray-600 gap-2 flex items-center justify-center">
+          <span>
+            Setup your rotors, reflector, and plugboard, then type message to encrypt or decrypt.
+          </span>
+          <HelpDialog />
         </p>
       </div>
 
