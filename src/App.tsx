@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import Rotor from "@/components/enigma/rotor/rotor";
 import Plugboard from "@/components/enigma/plugboard";
+import RotorDialog from "@/components/enigma/rotorDialog";
 
 import {
   MAX_STEPS,
@@ -15,6 +16,7 @@ import {
   ReflectorUkwB,
   AsciiCode,
   type PlugboardConfig,
+  createRotor,
 } from "@/lib/enigma";
 import { Card } from "./components/ui/card";
 
@@ -25,6 +27,7 @@ export default function App() {
   const [rotorSteps, setRotorSteps] = React.useState([0, 0, 0]);
   const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
+  const [rotorConfigs, setRotorConfigs] = React.useState([RotorI, RotorII, RotorIII]);
 
   const [pairings, setPairings] = React.useState<PlugboardConfig>(
     new Map([
@@ -44,13 +47,17 @@ export default function App() {
     setRotorSteps(newSteps);
   };
 
-  const enigmaHandle = (newInput: string, startSteps: number[]) => {
-    const myRotors = [RotorI, RotorII, RotorIII];
+  const updateRotorConfig = (index: number, config: string) => {
+    const newConfigs = [...rotorConfigs];
+    newConfigs[index] = config;
+    setRotorConfigs(newConfigs);
+  };
 
+  const enigmaHandle = (newInput: string, startSteps: number[]) => {
     const result = enigmaHandleMessage(
       newInput,
       ReflectorUkwB,
-      myRotors,
+      rotorConfigs.map((s) => createRotor(s)),
       startSteps,
       pairings,
       (steps: number[]) => {
@@ -93,6 +100,9 @@ export default function App() {
         <div className="flex gap-4 flex-row-reverse">
           {rotorSteps.map((s, i) => (
             <Card key={i}>
+              <div className="mx-2 flex justify-between items-center">
+                <RotorDialog onRotorChange={(r) => updateRotorConfig(i, r)} />
+              </div>
               <Rotor step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
             </Card>
           ))}

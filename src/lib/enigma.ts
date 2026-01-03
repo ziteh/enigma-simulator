@@ -46,7 +46,7 @@ export type PlugboardConfig = Map<AsciiCode, AsciiCode>;
 export const createRotor = (mapping: string): Rotor => {
   if (mapping.length !== MAX_STEPS) {
     throw new Error(
-      `Reflector mapping string must be ${MAX_STEPS} characters, but got: ` + mapping.length,
+      `Rotor mapping string must be ${MAX_STEPS} characters, but got: ` + mapping.length,
     );
   }
 
@@ -56,7 +56,13 @@ export const createRotor = (mapping: string): Rotor => {
   for (let i = 0; i < MAX_STEPS; i++) {
     const charCode = mapping.charCodeAt(i);
     if (charCode < AsciiCode.A || charCode > AsciiCode.Z) {
-      throw new Error("Rotor mapping must contain only A-Z characters but got: " + mapping);
+      throw new Error(
+        "Rotor mapping must contain only A-Z characters but got: " +
+          String.fromCharCode(charCode) +
+          " (" +
+          (i + 1) +
+          ")",
+      );
     }
     const fromIdx = i;
     const to = toIdx(charCode as AsciiCode);
@@ -111,7 +117,13 @@ export const createReflector = (mapping: string): number[] => {
   for (let i = 0; i < MAX_STEPS; i++) {
     const charCode = mapping.charCodeAt(i);
     if (charCode < AsciiCode.A || charCode > AsciiCode.Z) {
-      throw new Error("Reflector mapping must contain only A-Z characters, but got: " + mapping);
+      throw new Error(
+        "Reflector mapping must contain only A-Z characters but got: " +
+          String.fromCharCode(charCode) +
+          " (" +
+          (i + 1) +
+          ")",
+      );
     }
     reflector[i] = toIdx(charCode as AsciiCode);
   }
@@ -188,11 +200,16 @@ export function enigmaHandleMessage(
     .join("");
 }
 
-export const RotorI = createRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
-export const RotorII = createRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE");
-export const RotorIII = createRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO");
-export const RotorIV = createRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB");
-export const RotorV = createRotor("VZBRGITYUPSDNHLXAWMJQOFECK");
+export const RotorI = "EKMFLGDQVZNTOWYHXUSPAIBRCJ";
+export const RotorII = "AJDKSIRUXBLHWTMCQGZNPYFVOE";
+export const RotorIII = "BDFHJLCPRTXVZNYEIWGAKMUSQO";
+export const RotorIV = "ESOVPZJAYQUIRHXLNFTGKDCMWB";
+export const RotorV = "VZBRGITYUPSDNHLXAWMJQOFECK";
+// export const RotorI = createRotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
+// export const RotorII = createRotor("AJDKSIRUXBLHWTMCQGZNPYFVOE");
+// export const RotorIII = createRotor("BDFHJLCPRTXVZNYEIWGAKMUSQO");
+// export const RotorIV = createRotor("ESOVPZJAYQUIRHXLNFTGKDCMWB");
+// export const RotorV = createRotor("VZBRGITYUPSDNHLXAWMJQOFECK");
 
 export const ReflectorUkwB = createReflector("YRUHQSLDPXNGOKMIEBFZCWVJAT");
 export const ReflectorUkwC = createReflector("FVPJIAOYEDRZXWGCTKUQSBNMHL");
