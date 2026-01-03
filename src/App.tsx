@@ -21,12 +21,16 @@ import {
 } from "@/lib/enigma";
 import { Card } from "./components/ui/card";
 
+const DEFAULT_ROTOR_STEPS = ["M".charCodeAt(0), "I".charCodeAt(0), "V".charCodeAt(0)].map(
+  (c) => c - AsciiCode.A,
+);
+
 export default function App() {
   const [input, setInput] = React.useState("");
   const [output, setOutput] = React.useState("");
 
-  const [rotorSteps, setRotorSteps] = React.useState([0, 0, 0]);
-  const [defaultRotorSteps, setDefaultRotorSteps] = React.useState([0, 0, 0]);
+  const [rotorSteps, setRotorSteps] = React.useState(DEFAULT_ROTOR_STEPS);
+  const [defaultRotorSteps, setDefaultRotorSteps] = React.useState(DEFAULT_ROTOR_STEPS);
   const [previousInputLength, setPreviousInputLength] = React.useState(0);
   const [rotorConfigs, setRotorConfigs] = React.useState([RotorI, RotorII, RotorIII]);
   const [reflectorConfig, setReflectorConfig] = React.useState(ReflectorUkwB);
