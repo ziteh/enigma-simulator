@@ -1,6 +1,10 @@
 # Enigma Simulator
 
+![web](./fig/enigma-simulator.webp)
+
 An online Enigma machine simulator. Encrypt and decrypt messages using configurable rotors, reflectors, and plugboard settings.
+
+<https://enigma.ziteh.dev>
 
 Tech stack:
 
