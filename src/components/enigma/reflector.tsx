@@ -14,7 +14,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { createReflector, ReflectorUkwB, ReflectorUkwC } from "@/lib/enigma";
-import { Card } from "../ui/card";
 
 const configOptions = [
   { name: "B", config: ReflectorUkwB },
@@ -27,6 +26,7 @@ const DEFAULT_CUSTOM_CONFIG = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 
 export default function ReflectorDialog(prop: {
   defaultConfig?: number;
+  currentConfig?: string;
   onConfigChange?: (config: string) => void;
 }) {
   const [configName, setConfigName] = React.useState<string>(
@@ -34,17 +34,32 @@ export default function ReflectorDialog(prop: {
   );
   const [customConfig, setCustomConfig] = React.useState<string>(DEFAULT_CUSTOM_CONFIG);
   const [customConfigMessage, setCustomConfigMessage] = React.useState<string>(VALID_MESSAGE);
+  const [selectedValue, setSelectedValue] = React.useState<string>(
+    configOptions[DEFAULT_CONFIG_INDEX]!.config,
+  );
 
   const [open, setOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (prop.defaultConfig !== undefined) {
+    if (prop.currentConfig) {
+      const found = configOptions.find((r) => r.config === prop.currentConfig);
+      if (found) {
+        setConfigName(found.name);
+        setSelectedValue(found.config);
+      } else {
+        // custom
+        setConfigName("#");
+        setSelectedValue("custom");
+        setCustomConfig(prop.currentConfig);
+      }
+    } else if (prop.defaultConfig !== undefined) {
       const found = configOptions.find((_r, index) => index === prop.defaultConfig);
       if (found) {
         setConfigName(found.name);
+        setSelectedValue(found.config);
       }
     }
-  }, [prop.defaultConfig]);
+  }, [prop.defaultConfig, prop.currentConfig]);
 
   const handleCustomRotorChange = (value: string) => {
     value = value.toLocaleUpperCase().trim();
@@ -76,7 +91,7 @@ export default function ReflectorDialog(prop: {
             const config = formData.get("radios") as string;
             if (config === "custom") {
               prop.onConfigChange?.(customConfig);
-              setConfigName("C");
+              setConfigName("#");
             } else {
               prop.onConfigChange?.(config);
               setConfigName(configOptions.find((r) => r.config === config)!.name);
@@ -85,10 +100,7 @@ export default function ReflectorDialog(prop: {
             setOpen(false);
           }}
         >
-          <RadioGroup
-            defaultValue={configOptions[prop.defaultConfig ?? DEFAULT_CONFIG_INDEX]!.config}
-            name="radios"
-          >
+          <RadioGroup value={selectedValue} onValueChange={setSelectedValue} name="radios">
             {configOptions.map((rotor) => (
               <div className="flex items-center gap-3" key={rotor.name}>
                 <RadioGroupItem value={rotor.config} id={rotor.name} />

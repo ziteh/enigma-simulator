@@ -27,6 +27,7 @@ const DEFAULT_ROTOR_INDEX = 0;
 
 export default function RotorDialog(prop: {
   defaultConfig?: number;
+  currentConfig?: string;
   onRotorChange?: (rotor: string) => void;
 }) {
   const [configName, setConfigName] = React.useState<string>(
@@ -36,17 +37,32 @@ export default function RotorDialog(prop: {
   const [customRotorMessage, setCustomRotorMessage] = React.useState<string>(
     "This is a valid custom rotor configuration.",
   );
+  const [selectedValue, setSelectedValue] = React.useState<string>(
+    rotorOptions[DEFAULT_ROTOR_INDEX]!.config,
+  );
 
   const [open, setOpen] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (prop.defaultConfig !== undefined) {
+    if (prop.currentConfig) {
+      const found = rotorOptions.find((r) => r.config === prop.currentConfig);
+      if (found) {
+        setConfigName(found.name);
+        setSelectedValue(found.config);
+      } else {
+        // custom
+        setConfigName("#");
+        setSelectedValue("custom");
+        setCustomRotor(prop.currentConfig);
+      }
+    } else if (prop.defaultConfig !== undefined) {
       const found = rotorOptions.find((_r, index) => index === prop.defaultConfig);
       if (found) {
         setConfigName(found.name);
+        setSelectedValue(found.config);
       }
     }
-  }, [prop.defaultConfig]);
+  }, [prop.defaultConfig, prop.currentConfig]);
 
   const handleCustomRotorChange = (value: string) => {
     value = value.toLocaleUpperCase().trim();
@@ -75,7 +91,7 @@ export default function RotorDialog(prop: {
             const rotorConfig = formData.get("radios") as string;
             if (rotorConfig === "custom") {
               prop.onRotorChange?.(customRotor);
-              setConfigName("C");
+              setConfigName("#");
             } else {
               prop.onRotorChange?.(rotorConfig);
               setConfigName(rotorOptions.find((r) => r.config === rotorConfig)!.name);
@@ -87,7 +103,7 @@ export default function RotorDialog(prop: {
           <DialogHeader>
             <DialogTitle>Edit rotor</DialogTitle>
           </DialogHeader>
-          <RadioGroup defaultValue={rotorOptions[DEFAULT_ROTOR_INDEX]!.config} name="radios">
+          <RadioGroup value={selectedValue} onValueChange={setSelectedValue} name="radios">
             {rotorOptions.map((rotor) => (
               <div className="flex items-center gap-3" key={rotor.name}>
                 <RadioGroupItem value={rotor.config} id={rotor.name} />
