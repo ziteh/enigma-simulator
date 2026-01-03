@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { ArrowUpIcon } from "lucide-react";
 
 export default function Rotor(prop: { step?: number; onStepChange?: (delta: number) => void }) {
   const [step, setStep] = React.useState(prop.step || 0);
@@ -35,11 +36,16 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <Button variant="ghost" size="icon" onClick={() => prop.onStepChange?.(1)}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => prop.onStepChange?.(1)}
+        className="rounded-full"
+      >
         ▲
       </Button>
 
-      <div className="relative h-12 w-16 overflow-hidden">
+      <div className="relative h-8 w-16 overflow-hidden">
         <div
           key={step}
           className={`absolute top-0 left-0 w-full h-[300%] flex flex-col
@@ -51,18 +57,27 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
           }}
         >
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="opacity-70 scale-90">{indexToChar(step - 1)}</Badge>
+            <Badge className="font-mono rounded-sm opacity-70 scale-90">
+              {indexToChar(step - 1)}
+            </Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <Badge>{indexToChar(step)}</Badge>
+            <Badge className="font-mono rounded-sm">{indexToChar(step)}</Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="opacity-70 scale-90">{indexToChar(step + 1)}</Badge>
+            <Badge className="font-mono rounded-sm opacity-70 scale-90">
+              {indexToChar(step + 1)}
+            </Badge>
           </div>
         </div>
       </div>
 
-      <Button variant="ghost" size="icon" onClick={() => prop.onStepChange?.(-1)}>
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => prop.onStepChange?.(-1)}
+        className="rounded-full"
+      >
         ▼
       </Button>
 

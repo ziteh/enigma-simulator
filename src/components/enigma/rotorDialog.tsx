@@ -80,10 +80,15 @@ export default function RotorDialog(prop: {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">{configName}</Button>
+        <Button variant="secondary" size="icon" className="font-mono">
+          {configName}
+        </Button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-l">
+        <DialogHeader>
+          <DialogTitle>Edit rotor</DialogTitle>
+        </DialogHeader>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -100,19 +105,17 @@ export default function RotorDialog(prop: {
             setOpen(false);
           }}
         >
-          <DialogHeader>
-            <DialogTitle>Edit rotor</DialogTitle>
-          </DialogHeader>
           <RadioGroup value={selectedValue} onValueChange={setSelectedValue} name="radios">
             {rotorOptions.map((rotor) => (
               <div className="flex items-center gap-3" key={rotor.name}>
                 <RadioGroupItem value={rotor.config} id={rotor.name} />
                 <Label htmlFor={rotor.name}>Rotor {rotor.name}</Label>
+                <code className="font-mono">{rotor.config}</code>
               </div>
             ))}
             <div className="flex items-center gap-3">
-              <RadioGroupItem value="custom" id="r3" />
-              <Label htmlFor="r3">Custom</Label>
+              <RadioGroupItem value="custom" id="custom" />
+              <Label htmlFor="custom">Custom</Label>
               <Input
                 placeholder="EKMFLGDQVZNTOWYHXUSPAIBRCJ"
                 value={customRotor}

@@ -1,6 +1,7 @@
 import React, { type JSX } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { X, MoveHorizontal } from "lucide-react";
 import { AsciiCode, type PlugboardConfig } from "@/lib/enigma";
 
 function RenderSlot(prop: {
@@ -27,6 +28,7 @@ function RenderSlot(prop: {
           size="icon-lg"
           variant={isSelected ? "default" : "secondary"}
           onClick={() => prop.onClick(char)}
+          className="font-mono"
         >
           {char}
         </Button>
@@ -75,15 +77,18 @@ export default function Plugboard(prop: {
     <div>
       <div className="flex flex-wrap gap-2 mb-4">
         {Array.from(pairings.entries()).map(([a, b], i) => (
-          <div key={i}>
+          <div key={i} className="font-mono">
             <Badge variant="default">
-              {String.fromCharCode(a)}↔{String.fromCharCode(b)}
+              {String.fromCharCode(a)}
+              <MoveHorizontal />
+              {String.fromCharCode(b)}
               <Button
                 variant="ghost"
                 size="icon-sm"
                 onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
+                className="rounded-full"
               >
-                ✕
+                <X />
               </Button>
             </Badge>
           </div>

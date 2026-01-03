@@ -100,8 +100,8 @@ export default function App() {
       <div className="flex gap-16 items-center justify-between">
         <div className="flex gap-4 flex-row-reverse">
           {rotorSteps.map((s, i) => (
-            <Card key={i}>
-              <div className="mx-2 flex justify-between items-center">
+            <Card key={i} title={`Rotor ${i + 1}`} className="gap-4 py-4">
+              <div className="mx-4">
                 <RotorDialog
                   defaultConfig={i}
                   currentConfig={rotorConfigs[i]}
@@ -112,8 +112,8 @@ export default function App() {
             </Card>
           ))}
 
-          <Card>
-            <div className="mx-2 flex justify-between items-center">
+          <Card title="Reflector" className="py-4">
+            <div className="mx-2">
               <ReflectorDialog
                 defaultConfig={0}
                 currentConfig={reflectorConfig}
@@ -131,7 +131,12 @@ export default function App() {
 
       <div className="w-full max-w-3xl">
         <div className="mb-4 flex flex-row gap-2">
-          <Textarea placeholder="Here is the output" value={output} readOnly />
+          <Textarea
+            placeholder="Here is the output"
+            value={output}
+            readOnly
+            className="min-h-20 focus-visible:ring-0 cursor-default resize-none border-none font-mono"
+          />
           <Button
             onClick={() => {
               navigator.clipboard.writeText(output);
@@ -145,6 +150,7 @@ export default function App() {
             placeholder="Type your message here"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            className="font-mono"
           />
           <Button
             onClick={() => {
