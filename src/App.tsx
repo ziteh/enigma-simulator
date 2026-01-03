@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import Rotor from "@/components/enigma/rotor/rotor";
+import Rotor from "@/components/enigma/rotor";
 import Plugboard from "@/components/enigma/plugboard";
 import RotorDialog from "@/components/enigma/rotorDialog";
 import ReflectorDialog from "@/components/enigma/reflector";
