@@ -77,7 +77,12 @@ export default function ReflectorDialog(prop: {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" size="icon" className="font-mono text-xs">
+        <Button
+          variant="secondary"
+          size="icon"
+          className="font-mono text-xs"
+          aria-label="Edit reflector configuration"
+        >
           {configName}
         </Button>
       </DialogTrigger>

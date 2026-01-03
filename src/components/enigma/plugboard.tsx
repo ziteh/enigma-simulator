@@ -30,6 +30,7 @@ function RenderSlot(prop: {
           variant={isSelected ? "default" : "secondary"}
           onClick={() => prop.onClick(char)}
           className="font-mono"
+          aria-label={`Plugboard slot for letter ${char}`}
         >
           {char}
         </Button>
@@ -92,6 +93,7 @@ export default function Plugboard(prop: {
                   size="icon-sm"
                   onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
                   className="rounded-full"
+                  aria-label={`Delete pairing ${String.fromCharCode(a)}-${String.fromCharCode(b)}`}
                 >
                   <X />
                 </Button>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowUpIcon } from "lucide-react";
 
 export default function Rotor(prop: { step?: number; onStepChange?: (delta: number) => void }) {
   const [step, setStep] = React.useState(prop.step || 0);
@@ -41,6 +40,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
         size="icon"
         onClick={() => prop.onStepChange?.(1)}
         className="rounded-full"
+        aria-label="Increase rotor step"
       >
         ▲
       </Button>
@@ -57,15 +57,23 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
           }}
         >
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="font-mono rounded-sm opacity-70 scale-90">
+            <Badge
+              className="font-mono rounded-sm opacity-70 scale-90"
+              aria-label="Previous rotor step"
+            >
               {indexToChar(step - 1)}
             </Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="font-mono rounded-sm">{indexToChar(step)}</Badge>
+            <Badge className="font-mono rounded-sm" aria-label="Current rotor step">
+              {indexToChar(step)}
+            </Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="font-mono rounded-sm opacity-70 scale-90">
+            <Badge
+              className="font-mono rounded-sm opacity-70 scale-90"
+              aria-label="Next rotor step"
+            >
               {indexToChar(step + 1)}
             </Badge>
           </div>
@@ -77,6 +85,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
         size="icon"
         onClick={() => prop.onStepChange?.(-1)}
         className="rounded-full"
+        aria-label="Decrease rotor step"
       >
         ▼
       </Button>

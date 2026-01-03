@@ -12,7 +12,13 @@ export default function HelpDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="secondary" title="Help" size="icon-sm" className="rounded-full">
+        <Button
+          variant="secondary"
+          title="Help"
+          size="icon-sm"
+          className="rounded-full"
+          aria-label="Open help dialog"
+        >
           ?
         </Button>
       </DialogTrigger>

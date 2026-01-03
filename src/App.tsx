@@ -147,6 +147,7 @@ export default function App() {
             onClick={() => {
               navigator.clipboard.writeText(output);
             }}
+            aria-label="Copy output to clipboard"
           >
             Copy
           </Button>
@@ -166,6 +167,7 @@ export default function App() {
               setInput("");
               setOutput("");
             }}
+            aria-label="Clear input and output"
           >
             Clear
           </Button>
