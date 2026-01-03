@@ -21,7 +21,7 @@ const configOptions = [
 ];
 
 const DEFAULT_CONFIG_INDEX = 0;
-const VALID_MESSAGE = "This is a valid custom reflector configuration.";
+const VALID_MESSAGE = "Valid reflector configuration.";
 const DEFAULT_CUSTOM_CONFIG = "YRUHQSLDPXNGOKMIEBFZCWVJAT";
 
 export default function ReflectorDialog(prop: {
@@ -89,7 +89,7 @@ export default function ReflectorDialog(prop: {
 
       <DialogContent className="sm:max-w-l">
         <DialogHeader>
-          <DialogTitle>Edit reflector</DialogTitle>
+          <DialogTitle>Configure Reflector</DialogTitle>
         </DialogHeader>
         <form
           onSubmit={(e) => {

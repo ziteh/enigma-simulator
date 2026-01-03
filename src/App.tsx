@@ -44,7 +44,7 @@ export default function App() {
 
   const resetRotorSteps = () => {
     setRotorSteps([0, 0, 0]);
-    setDefaultRotorSteps([0, 0, 0]);
+    // setDefaultRotorSteps([0, 0, 0]);
   };
 
   const updateRotorSteps = (index: number, delta: number) => {
@@ -98,7 +98,8 @@ export default function App() {
         <h1 className="text-2xl md:text-4xl font-bold mb-2">Enigma Simulator</h1>
         <p className="text-sm md:text-lg opacity-50 gap-2 flex flex-wrap items-center justify-center">
           <span>
-            Setup your rotors, reflector, and plugboard, then type message to encrypt or decrypt.
+            Configure your rotors, reflector, and plugboard, then type your message to encrypt or
+            decrypt.
           </span>
           <HelpDialog />
         </p>
@@ -130,14 +131,14 @@ export default function App() {
           </Card>
         </div>
         <div className="flex flex-row md:flex-col gap-4 flex-wrap justify-center lg:absolute lg:right-45">
-          <Button variant="default" onClick={() => resetRotorSteps()}>
-            Reset Step
-          </Button>
           <Button variant="default" onClick={() => setDefaultRotorSteps(rotorSteps)}>
-            Save Step
+            Set Start Position
           </Button>
           <Button variant="default" onClick={() => setRotorSteps(defaultRotorSteps)}>
-            Load Step
+            Reset to Start
+          </Button>
+          <Button variant="secondary" onClick={() => resetRotorSteps()}>
+            Reset to AAA
           </Button>
         </div>
       </div>
@@ -145,7 +146,7 @@ export default function App() {
       <div className="w-full max-w-3xl px-4 md:px-0">
         <div className="mb-4 relative">
           <Textarea
-            placeholder="Here is the output"
+            placeholder="Output (Ciphertext)"
             value={output}
             readOnly
             className="min-h-20 focus-visible:ring-0 cursor-default resize-none border-none font-mono pr-20"
@@ -164,7 +165,7 @@ export default function App() {
         </div>
         <div className="relative">
           <Textarea
-            placeholder="Type your message here"
+            placeholder="Input (Plaintext)"
             value={input}
             onChange={(e) => setInput(e.target.value)}
             className="min-h-20 font-mono pr-20"

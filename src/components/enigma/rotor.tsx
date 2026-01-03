@@ -40,7 +40,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
         size="icon"
         onClick={() => prop.onStepChange?.(1)}
         className="rounded-full"
-        aria-label="Increase rotor step"
+        aria-label="Increase rotor position"
       >
         ▲
       </Button>
@@ -59,20 +59,20 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
           <div className="flex-1 flex items-center justify-center">
             <Badge
               className="font-mono rounded-sm opacity-70 scale-90"
-              aria-label="Previous rotor step"
+              aria-label="Previous rotor position"
             >
               {indexToChar(step - 1)}
             </Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
-            <Badge className="font-mono rounded-sm" aria-label="Current rotor step">
+            <Badge className="font-mono rounded-sm" aria-label="Current rotor position">
               {indexToChar(step)}
             </Badge>
           </div>
           <div className="flex-1 flex items-center justify-center">
             <Badge
               className="font-mono rounded-sm opacity-70 scale-90"
-              aria-label="Next rotor step"
+              aria-label="Next rotor position"
             >
               {indexToChar(step + 1)}
             </Badge>
@@ -85,7 +85,7 @@ export default function Rotor(prop: { step?: number; onStepChange?: (delta: numb
         size="icon"
         onClick={() => prop.onStepChange?.(-1)}
         className="rounded-full"
-        aria-label="Decrease rotor step"
+        aria-label="Decrease rotor position"
       >
         ▼
       </Button>

@@ -24,7 +24,7 @@ export default function HelpDialog() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-120">
         <DialogHeader>
-          <DialogTitle>Guide</DialogTitle>
+          <DialogTitle>Enigma Simulator Guide</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           The Enigma machine is used to encrypt and decrypt messages.
@@ -40,15 +40,15 @@ export default function HelpDialog() {
           <br />
           <br />
           <strong>Rotors: </strong>Perform letter mapping and rotate with each key press, which
-          changes the mapping.
+          changes the mapping. The rotors are located in the top, and this model has three rotors.
           <br />
           <br />
           <strong>Reflector: </strong>Reflects the signal back through the rotors. A letter never
-          maps to itself.
+          maps to itself. The reflector is located in the top along with the rotors.
           <br />
           <br />
           <strong>Plugboard: </strong>Swaps pairs of letters before and after the signal passes
-          through the rotors and reflector.
+          through the rotors and reflector. The plugboard is located at the bottom.
           <br />
           <br />
           <strong>Signal Path: </strong>Input Letter → Plugboard → Rotors (in order) → Reflector →

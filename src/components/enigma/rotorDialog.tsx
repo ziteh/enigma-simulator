@@ -37,6 +37,7 @@ const rotorOptions = [
 ];
 
 const DEFAULT_ROTOR_INDEX = 0;
+const VALID_MESSAGE = "Valid rotor configuration.";
 
 export default function RotorDialog(prop: {
   defaultConfig?: number;
@@ -47,9 +48,7 @@ export default function RotorDialog(prop: {
     rotorOptions[DEFAULT_ROTOR_INDEX]!.name,
   );
   const [customRotor, setCustomRotor] = React.useState<string>("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
-  const [customRotorMessage, setCustomRotorMessage] = React.useState<string>(
-    "This is a valid custom rotor configuration.",
-  );
+  const [customRotorMessage, setCustomRotorMessage] = React.useState<string>(VALID_MESSAGE);
   const [selectedValue, setSelectedValue] = React.useState<string>(
     rotorOptions[DEFAULT_ROTOR_INDEX]!.config,
   );
@@ -81,7 +80,7 @@ export default function RotorDialog(prop: {
     value = value.toLocaleUpperCase().trim();
     try {
       createRotor(value);
-      setCustomRotorMessage("This is a valid custom rotor configuration.");
+      setCustomRotorMessage(VALID_MESSAGE);
     } catch (error) {
       if (error instanceof Error) {
         setCustomRotorMessage(error.message);
@@ -105,7 +104,7 @@ export default function RotorDialog(prop: {
 
       <DialogContent className="sm:max-w-l">
         <DialogHeader>
-          <DialogTitle>Edit rotor</DialogTitle>
+          <DialogTitle>Configure Rotor</DialogTitle>
         </DialogHeader>
         <form
           onSubmit={(e) => {
