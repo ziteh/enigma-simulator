@@ -55,6 +55,16 @@ export default function HelpDialog() {
           Rotors (reverse order) → Plugboard → Output Letter
           <br />
           <br />
+          GitHub:{" "}
+          <a
+            href="https://github.com/ziteh/enigma-simulator"
+            className="underline"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ziteh/enigma-simulator
+          </a>
+          <br />
           Ref:{" "}
           <a
             href="https://www.cryptomuseum.com/crypto/enigma/wiring.htm"
