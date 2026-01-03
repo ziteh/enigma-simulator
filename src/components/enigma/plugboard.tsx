@@ -24,7 +24,8 @@ function RenderSlot(prop: {
       <div key={i}>
         <Button
           disabled={isPaired}
-          variant={isSelected ? "outline" : "default"}
+          size="icon-lg"
+          variant={isSelected ? "default" : "secondary"}
           onClick={() => prop.onClick(char)}
         >
           {char}
@@ -75,10 +76,11 @@ export default function Plugboard(prop: {
       <div className="flex flex-wrap gap-2 mb-4">
         {Array.from(pairings.entries()).map(([a, b], i) => (
           <div key={i}>
-            <Badge>
+            <Badge variant="default">
               {String.fromCharCode(a)}↔{String.fromCharCode(b)}
               <Button
-                size="icon"
+                variant="ghost"
+                size="icon-sm"
                 onClick={() => deletePairing(String.fromCharCode(a), String.fromCharCode(b))}
               >
                 ✕
