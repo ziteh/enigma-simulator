@@ -25,22 +25,34 @@ const rotorOptions = [
 
 const DEFAULT_ROTOR_INDEX = 0;
 
-export default function RotorDialog(prop: { onRotorChange?: (rotor: string) => void }) {
+export default function RotorDialog(prop: {
+  defaultConfig?: number;
+  onRotorChange?: (rotor: string) => void;
+}) {
   const [configName, setConfigName] = React.useState<string>(
     rotorOptions[DEFAULT_ROTOR_INDEX]!.name,
   );
   const [customRotor, setCustomRotor] = React.useState<string>("EKMFLGDQVZNTOWYHXUSPAIBRCJ");
   const [customRotorMessage, setCustomRotorMessage] = React.useState<string>(
-    "This is a valid rotor configuration.",
+    "This is a valid custom rotor configuration.",
   );
 
   const [open, setOpen] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    if (prop.defaultConfig !== undefined) {
+      const found = rotorOptions.find((_r, index) => index === prop.defaultConfig);
+      if (found) {
+        setConfigName(found.name);
+      }
+    }
+  }, [prop.defaultConfig]);
 
   const handleCustomRotorChange = (value: string) => {
     value = value.toLocaleUpperCase().trim();
     try {
       createRotor(value);
-      setCustomRotorMessage("This is a valid rotor configuration.");
+      setCustomRotorMessage("This is a valid custom rotor configuration.");
     } catch (error) {
       if (error instanceof Error) {
         setCustomRotorMessage(error.message);

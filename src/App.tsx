@@ -101,7 +101,7 @@ export default function App() {
           {rotorSteps.map((s, i) => (
             <Card key={i}>
               <div className="mx-2 flex justify-between items-center">
-                <RotorDialog onRotorChange={(r) => updateRotorConfig(i, r)} />
+                <RotorDialog defaultConfig={i} onRotorChange={(r) => updateRotorConfig(i, r)} />
               </div>
               <Rotor step={s} onStepChange={(delta) => updateRotorSteps(i, delta)} />
             </Card>
