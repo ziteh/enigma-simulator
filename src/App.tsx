@@ -100,7 +100,7 @@ export default function App() {
         </p>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-center justify-between w-full max-w-lg">
+      <div className="relative flex flex-col md:flex-row items-center justify-center w-full max-w-5xl gap-8">
         <div className="flex gap-4 flex-row-reverse items-center">
           {rotorSteps.map((s, i) => (
             <Card key={i} title={`Rotor ${i + 1}`} className="gap-4 py-4 w-full md:w-auto min-h-54">
@@ -125,7 +125,7 @@ export default function App() {
             </div>
           </Card>
         </div>
-        <div className="flex flex-row md:flex-col gap-4 flex-wrap justify-center">
+        <div className="flex flex-row md:flex-col gap-4 flex-wrap justify-center lg:absolute lg:right-45">
           <Button variant="default" onClick={() => resetRotorSteps()}>
             Reset Step
           </Button>
