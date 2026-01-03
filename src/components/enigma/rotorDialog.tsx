@@ -123,7 +123,7 @@ export default function RotorDialog(prop: {
               <div className="flex items-center gap-3" key={rotor.name}>
                 <RadioGroupItem value={rotor.config} id={rotor.name} />
                 <Label htmlFor={rotor.name}>Rotor {rotor.name}</Label>
-                <code className="font-mono">{rotor.config}</code>
+                <code className="font-mono opacity-50">{rotor.config}</code>
               </div>
             ))}
             <div className="flex items-center gap-3">
@@ -140,7 +140,7 @@ export default function RotorDialog(prop: {
           </RadioGroup>
           <DialogFooter>
             <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
+              <Button variant="secondary">Cancel</Button>
             </DialogClose>
             <Button type="submit">Save</Button>
           </DialogFooter>
