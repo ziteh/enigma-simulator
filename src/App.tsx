@@ -59,19 +59,22 @@ export default function App() {
     setRotorConfigs(newConfigs);
   };
 
-  const enigmaHandle = (newInput: string, startSteps: number[]) => {
-    const result = enigmaHandleMessage(
-      newInput,
-      createReflector(reflectorConfig),
-      rotorConfigs.map((s) => createRotor(s)),
-      startSteps,
-      pairings,
-      (steps: number[]) => {
-        setRotorSteps(steps);
-      },
-    );
-    return result;
-  };
+  const enigmaHandle = React.useCallback(
+    (newInput: string, startSteps: number[]) => {
+      const result = enigmaHandleMessage(
+        newInput,
+        createReflector(reflectorConfig),
+        rotorConfigs.map((s) => createRotor(s)),
+        startSteps,
+        pairings,
+        (steps: number[]) => {
+          setRotorSteps(steps);
+        },
+      );
+      return result;
+    },
+    [rotorConfigs, reflectorConfig, pairings],
+  );
 
   React.useEffect(() => {
     // only process the new characters
@@ -90,7 +93,7 @@ export default function App() {
     }
 
     setPreviousInputLength(input.length);
-  }, [defaultRotorSteps, input, previousInputLength, rotorSteps]);
+  }, [defaultRotorSteps, input, previousInputLength, rotorSteps, enigmaHandle]);
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center p-4 md:p-8 gap-6">
